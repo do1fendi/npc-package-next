@@ -9,7 +9,7 @@ interface iProps {
 /**
  * Check element is in viewport
  * @param threshold - example treshold 0.25
- * @param rootMargin - "80% 0 -20% 0"
+ * @param rootMargin - "80% 0px -20% 0px"
  * @returns Boolean true or false
  * @usage set const - const [ref, isIntersecting] = useInViewport({ threshold: 0.25, rootMargin: "50% 0px -50% 0px" });
  * @usage wrap element &lt;div ref={ref}&gt;{your element}&lt;/div&gt;
