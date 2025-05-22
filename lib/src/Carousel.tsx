@@ -34,7 +34,7 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
   const childrenArray = React.Children.toArray(children);
 
   const childrenArrays = useMemo(() => React.Children.toArray(children), [children]);
-  const totalSlides = childrenArrays.length + 1;
+  const totalSlides = childrenArrays.length;
 
   const slideLeft = () => {
     console.log("left");
@@ -182,6 +182,7 @@ Carousel.LeftButton = function LeftButton({ children }: { children: React.ReactN
     </button>
   );
 };
+
 Carousel.RightButton = function RightButton({ children }: { children: React.ReactNode }) {
   const ctx = useContext(CarouselContext);
   if (!ctx) return null;
@@ -199,5 +200,41 @@ Carousel.RightButton = function RightButton({ children }: { children: React.Reac
     >
       {children || "→"}
     </button>
+  );
+};
+
+Carousel.Bullet = function Bullet() {
+  const ctx = useContext(CarouselContext);
+  if (!ctx) return null;
+
+  const slides = Array.from({ length: ctx.totalSlides }, (_, i) => i);
+  const index = ctx.index;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: "50%",
+        transform: "translateX(-50%)",
+        bottom: "20px",
+        zIndex: 1,
+        display: "flex",
+        alignItems: "center",
+        gap: "5px",
+      }}
+    >
+      {slides.map((slide, i) => (
+        <span
+          key={i}
+          style={{
+            border: "solid thin #ccc",
+            width: i === index - 1 ? "13px" : "10px",
+            height: i === index - 1 ? "13px" : "10px",
+            borderRadius: "50%",
+            display: "inline-block",
+          }}
+        ></span>
+      ))}
+    </div>
   );
 };

@@ -12,6 +12,7 @@ export default function Home() {
         <Carousel speed={1.2} auto>
           <Carousel.LeftButton>Left</Carousel.LeftButton>
           <Carousel.RightButton>Right</Carousel.RightButton>
+          <Carousel.Bullet />
           <Carousel.Slider>
             <div className="w-[300px] h-[300px] bg-pink-200">0</div>
             <div className="w-[300px] h-[300px] bg-pink-400">1</div>

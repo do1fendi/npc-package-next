@@ -40,6 +40,7 @@ declare namespace Carousel {
     var RightButton: ({ children }: {
         children: React__default.ReactNode;
     }) => react_jsx_runtime.JSX.Element | null;
+    var Bullet: () => react_jsx_runtime.JSX.Element | null;
 }
 
 export { Carousel, useInViewport };
