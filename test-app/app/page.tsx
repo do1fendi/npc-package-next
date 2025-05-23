@@ -8,16 +8,16 @@ export default function Home() {
       {/* <div className="h-screen">sdad</div>
       <div ref={ref}>{JSON.stringify(isIntersecting)}</div>
       <div className="h-screen">sdad</div> */}
-      <div className="w-[300px] h-[300px]">
-        <Carousel speed={1.2} auto>
-          <Carousel.LeftButton>Left</Carousel.LeftButton>
+      <div className="w-[300px] h-[300px] rounded overflow-hidden">
+        <Carousel speed={.4} auto >
+          <Carousel.LeftButton className="text-xl cursor-pointer">Left</Carousel.LeftButton>
           <Carousel.RightButton>Right</Carousel.RightButton>
           <Carousel.Bullet />
           <Carousel.Slider>
-            <div className="w-[300px] h-[300px] bg-pink-200">0</div>
-            <div className="w-[300px] h-[300px] bg-pink-400">1</div>
-            <div className="w-[300px] h-[300px] bg-pink-600">2</div>
-            <div className="w-[300px] h-[300px] bg-pink-800">3</div>
+            <div className="w-full h-full bg-pink-200">0</div>
+            <div className="w-full h-full bg-pink-400">1</div>
+            <div className="w-full h-full bg-pink-600">2</div>
+            <div className="w-full h-full bg-pink-800">3</div>
           </Carousel.Slider>
         </Carousel>
       </div>
