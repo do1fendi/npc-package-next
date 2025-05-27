@@ -13,11 +13,12 @@ interface iController {
 }
 
 const CarouselContext = createContext<{
-  slideLeft: () => void;
-  slideRight: () => void;
+  prevSlide: () => void;
+  nextSlide: () => void;
   isTransitioning: boolean;
   totalSlides: number;
   index: number;
+  setIndex: (index: number) => void;
   isJump: boolean;
   speed: number;
 } | null>(null);
@@ -54,13 +55,13 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
   const childrenArrays = useMemo(() => React.Children.toArray(children), [children]);
   const totalSlides = childrenArrays.length;
 
-  const slideLeft = () => {
+  const prevSlide = () => {
     setResetAutoOnBtnClick(true);
     setIsJump(false);
     setIndex((prev) => prev - 1);
   };
 
-  const slideRight = () => {
+  const nextSlide = () => {
     setResetAutoOnBtnClick(true);
     setIsJump(false);
     setIndex((prev) => prev + 1);
@@ -119,7 +120,9 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
   }, [auto, interval, resetAutoOnBtnClick]);
 
   return (
-    <CarouselContext.Provider value={{ slideLeft, slideRight, isTransitioning, totalSlides, index, isJump, speed }}>
+    <CarouselContext.Provider
+      value={{ prevSlide, nextSlide, isTransitioning, totalSlides, index, isJump, speed, setIndex }}
+    >
       <div
         ref={ref}
         style={{
@@ -178,8 +181,9 @@ Carousel.LeftButton = function LeftButton({ children, className }: iController) 
   return (
     <button
       className={className}
-      onClick={ctx.slideLeft}
+      onClick={ctx.prevSlide}
       disabled={ctx.isTransitioning}
+      aria-label="Previous slide"
       style={{
         position: "absolute",
         top: "50%",
@@ -199,8 +203,9 @@ Carousel.RightButton = function RightButton({ children, className }: iController
   return (
     <button
       className={className}
-      onClick={ctx.slideRight}
+      onClick={ctx.nextSlide}
       disabled={ctx.isTransitioning}
+      aria-label="Next slide"
       style={{
         position: "absolute",
         top: "50%",
@@ -236,16 +241,19 @@ Carousel.Bullet = function Bullet({ className }: iController) {
       }}
     >
       {slides.map((slide, i) => (
-        <span
+        <button
           key={i}
+          onClick={() => ctx.setIndex(i + 1)}
+          aria-label={`Go to slide ${i + 1}`}
           style={{
             border: "solid thin #ccc",
             width: i === index - 1 ? "13px" : "10px",
             height: i === index - 1 ? "13px" : "10px",
             borderRadius: "50%",
             display: "inline-block",
+            cursor: "pointer",
           }}
-        ></span>
+        ></button>
       ))}
     </div>
   );
