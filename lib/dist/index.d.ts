@@ -104,6 +104,30 @@ interface iProps {
     children: ReactNode;
     className?: string;
 }
+/**
+ * Accordion
+ * @example
+ * ```tsx
+ * <Accordion>
+        <Accordion.Item>
+          <Accordion.Item.Header>
+            <h1>Accordion Item Header 1</h1>
+          </Accordion.Item.Header>
+          <Accordion.Item.Body>
+            <p>Body content 1</p>
+          </Accordion.Item.Body>
+        </Accordion.Item>
+        <Accordion.Item>
+          <Accordion.Item.Header>
+            <h1>Accordion Item Header 2</h1>
+          </Accordion.Item.Header>
+          <Accordion.Item.Body>
+            <p>Body content 2</p>
+          </Accordion.Item.Body>
+        </Accordion.Item>
+      </Accordion>
+ * ```
+ */
 declare function Accordion({ children, className }: iProps): react_jsx_runtime.JSX.Element;
 declare namespace Accordion {
     var Item: (({ children, className }: iProps) => react_jsx_runtime.JSX.Element) & {
