@@ -29,18 +29,22 @@ const CarouselContext = createContext<{
  * @param auto - optional boolean for auto slide
  * @param interval - optional default 3000
  * @usage wrap element &lt;Carousel ref={ref}&gt;{your element}&lt;/Carousel&gt;
- * @usage &lt;div className="w-[300px] h-[300px] rounded overflow-hidden"&gt;
-        &lt;Carousel speed={1.2} auto&gt;
-          &lt;Carousel.LeftButton className="text-xl cursor-pointer"&gt;Left&lt;/Carousel.LeftButton&gt;
-          &lt;Carousel.RightButton&gt;Right&lt;/Carousel.RightButton&gt;
-          &lt;Carousel.Bullet /&gt;
-          &lt;Carousel.Slider&gt;
-            &lt;div className="w-full h-full bg-pink-200"&gt;0&lt;/div&gt;
-            &lt;div className="w-full h-full bg-pink-400"&gt;1&lt;/div&gt;
-            &lt;div className="w-full h-full bg-pink-600"&gt;2&lt;/div&gt;
-            &lt;div className="w-full h-full bg-pink-800"&gt;3&lt;/div&gt;
-          &lt;/Carousel.Slider&gt;
-        &lt;/Carousel&gt;
+ * @example 
+ * ```tsx
+ * <div className="w-[300px] h-[300px] rounded overflow-hidden">
+        <Carousel speed={0.4} auto>
+          <Carousel.LeftButton className="text-xl cursor-pointer">Left</Carousel.LeftButton>
+          <Carousel.RightButton>Right</Carousel.RightButton>
+          <Carousel.Bullet />
+          <Carousel.Slider>
+            <div className="w-full h-full bg-pink-200">0</div>
+            <div className="w-full h-full bg-pink-400">1</div>
+            <div className="w-full h-full bg-pink-600">2</div>
+            <div className="w-full h-full bg-pink-800">3</div>
+          </Carousel.Slider>
+        </Carousel>
+      </div>
+ * ```
  */
 
 export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProps) {
@@ -49,8 +53,6 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
   const [isTransitioning, setIsTranstioning] = useState(false);
   const [resetAutoOnBtnClick, setResetAutoOnBtnClick] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  const childrenArray = React.Children.toArray(children);
 
   const childrenArrays = useMemo(() => React.Children.toArray(children), [children]);
   const totalSlides = childrenArrays.length;
@@ -133,7 +135,7 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
         }}
       >
         {/* Render children including buttons */}
-        {childrenArray.map((child, i) =>
+        {childrenArrays.map((child, i) =>
           React.isValidElement(child) ? <React.Fragment key={i}>{child}</React.Fragment> : null
         )}
       </div>

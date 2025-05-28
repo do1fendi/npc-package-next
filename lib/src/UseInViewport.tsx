@@ -11,8 +11,13 @@ interface iProps {
  * @param threshold - example treshold 0.25
  * @param rootMargin - "80% 0px -20% 0px"
  * @returns Boolean true or false
- * @usage set const - const [ref, isIntersecting] = useInViewport({ threshold: 0.25, rootMargin: "50% 0px -50% 0px" });
- * @usage wrap element &lt;div ref={ref}&gt;{your element}&lt;/div&gt;
+ * @usage  
+ * ```tsx 
+ * const [ref, isIntersecting] = useInViewport({ threshold: 0.25, rootMargin: "50% 0px -50% 0px" }); 
+ * 
+ * <div ref={ref} style={{backgroundColor: isIntersecting ? "green" : "red"}}>Hello World</div>
+ * ```
+ 
  */
 
 export const useInViewport = (props: iProps) => {
