@@ -103,6 +103,7 @@ interface iChildrenProps {
 interface iProps {
     children: ReactNode;
     className?: string;
+    height?: number;
 }
 /**
  * Accordion
@@ -113,7 +114,7 @@ interface iProps {
           <Accordion.Item.Header>
             <h1>Accordion Item Header 1</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body>
+          <Accordion.Item.Body height={384}>
             <p>Body content 1</p>
           </Accordion.Item.Body>
         </Accordion.Item>
@@ -121,7 +122,7 @@ interface iProps {
           <Accordion.Item.Header>
             <h1>Accordion Item Header 2</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body>
+          <Accordion.Item.Body height={384}>
             <p>Body content 2</p>
           </Accordion.Item.Body>
         </Accordion.Item>
@@ -136,6 +137,6 @@ declare namespace Accordion {
     };
 }
 declare const AccordionItemHeader: ({ children, className }: iProps) => react_jsx_runtime.JSX.Element;
-declare const AccordionItemBody: ({ children, className }: iProps) => react_jsx_runtime.JSX.Element;
+declare const AccordionItemBody: ({ children, className, height }: iProps) => react_jsx_runtime.JSX.Element;
 
 export { Accordion, Carousel, Modal, useInViewport };

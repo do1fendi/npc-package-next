@@ -3,6 +3,7 @@ import React, { createContext, ReactNode, useState, useContext, useRef } from "r
 interface iProps {
   children: ReactNode;
   className?: string;
+  height?: number;
 }
 
 interface iAccordionContext {
@@ -24,7 +25,7 @@ const AccordionContext = createContext<iAccordionContext>({
           <Accordion.Item.Header>
             <h1>Accordion Item Header 1</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body>
+          <Accordion.Item.Body height={384}>
             <p>Body content 1</p>
           </Accordion.Item.Body>
         </Accordion.Item>
@@ -32,7 +33,7 @@ const AccordionContext = createContext<iAccordionContext>({
           <Accordion.Item.Header>
             <h1>Accordion Item Header 2</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body>
+          <Accordion.Item.Body height={384}>
             <p>Body content 2</p>
           </Accordion.Item.Body>
         </Accordion.Item>
@@ -78,14 +79,14 @@ const AccordionItemHeader = ({ children, className }: iProps) => {
   );
 };
 
-const AccordionItemBody = ({ children, className }: iProps) => {
+const AccordionItemBody = ({ children, className, height = 500 }: iProps) => {
   const { openId } = useContext(AccordionContext);
   const itemContext = useContext(AccordionItemContext);
   const id = itemContext?.id ?? "";
   const isOpen = openId === id;
 
   return (
-    <div className={className} style={{ maxHeight: isOpen ? "5000px" : "0px", overflow: "hidden" }}>
+    <div className={className} style={{ maxHeight: isOpen ? height : "0px", overflow: "hidden" }}>
       {children}
     </div>
   );

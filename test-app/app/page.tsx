@@ -42,12 +42,12 @@ export default function Home() {
       </Modal>
       <button onClick={() => setIsOpen(true)}>Open Modal</button> */}
 
-      <Accordion className="w-[500px]">
+      <Accordion className="w-[500px] border border-gray-200 rounded-lg">
         <Accordion.Item>
-          <Accordion.Item.Header className="text-xl font-bold">
-            <h1>Accordion Item Header</h1>
+          <Accordion.Item.Header className="text-xl font-bold cursor-pointer p-2 border-b border-gray-200">
+            <h1>Accordion Item Header 1</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body className="transition-[max-height] duration-500 ease-in-out overflow-hidden">
+          <Accordion.Item.Body className="transition-all duration-500 ease-in-out px-5">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
               consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -58,11 +58,17 @@ export default function Home() {
           </Accordion.Item.Body>
         </Accordion.Item>
         <Accordion.Item>
-          <Accordion.Item.Header className="text-xl font-bold">
-            <h1>Accordion Item Header</h1>
+          <Accordion.Item.Header className="text-xl font-bold cursor-pointer p-2 border-b border-gray-200">
+            <h1>Accordion Item Header 2</h1>
           </Accordion.Item.Header>
-          <Accordion.Item.Body>
-            <p>Accordion Item Body</p>
+          <Accordion.Item.Body className="transition-all duration-500 ease-in-out px-5">
+          <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum
+              dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Quisquam, quos.
+            </p>
           </Accordion.Item.Body>
         </Accordion.Item>
       </Accordion>
