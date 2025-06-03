@@ -67,8 +67,6 @@ const [isOpen, setIsOpen] = useState(false);
 ### Example Usage with tailwind
 
 ```
-const [ref, isIntersecting] = useInViewport({ threshold: 0.25, rootMargin: "50% 0px -50% 0px" });
-
 <Accordion className="w-[500px] border border-gray-200 rounded-lg">
     <Accordion.Item>
         <Accordion.Item.Header className="text-xl font-bold cursor-pointer p-2 border-b border-gray-200">
