@@ -26,6 +26,7 @@ interface iProps$2 {
     speed?: number;
     auto?: boolean;
     interval?: number;
+    slidesToShow?: number;
 }
 interface iController {
     children?: React__default.ReactNode;
@@ -36,6 +37,7 @@ interface iController {
  * @param speed - optional default 0.3
  * @param auto - optional boolean for auto slide
  * @param interval - optional default 3000
+ * @param slidesToShow - optional default 1
  * @usage wrap element &lt;Carousel ref={ref}&gt;{your element}&lt;/Carousel&gt;
  * @example
  * ```tsx
@@ -54,7 +56,7 @@ interface iController {
       </div>
  * ```
  */
-declare function Carousel({ children, speed, auto, interval }: iProps$2): react_jsx_runtime.JSX.Element;
+declare function Carousel({ children, speed, auto, interval, slidesToShow }: iProps$2): react_jsx_runtime.JSX.Element;
 declare namespace Carousel {
     var Slider: ({ children }: {
         children: React__default.ReactNode;

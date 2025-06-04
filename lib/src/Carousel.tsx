@@ -5,6 +5,7 @@ interface iProps {
   speed?: number;
   auto?: boolean;
   interval?: number;
+  slidesToShow?: number;
 }
 
 interface iController {
@@ -21,6 +22,7 @@ const CarouselContext = createContext<{
   setIndex: (index: number) => void;
   isJump: boolean;
   speed: number;
+  slidesToShow: number;
 } | null>(null);
 
 /**
@@ -28,6 +30,7 @@ const CarouselContext = createContext<{
  * @param speed - optional default 0.3
  * @param auto - optional boolean for auto slide
  * @param interval - optional default 3000
+ * @param slidesToShow - optional default 1
  * @usage wrap element &lt;Carousel ref={ref}&gt;{your element}&lt;/Carousel&gt;
  * @example 
  * ```tsx
@@ -47,15 +50,21 @@ const CarouselContext = createContext<{
  * ```
  */
 
-export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProps) {
+export function Carousel({ children, speed = 0.3, auto, interval = 3000, slidesToShow = 1 }: iProps) {
   const [index, setIndex] = useState(1); // Start at 1 because of prepended clone
   const [isJump, setIsJump] = useState(false);
-  const [isTransitioning, setIsTranstioning] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [resetAutoOnBtnClick, setResetAutoOnBtnClick] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const childrenArrays = useMemo(() => React.Children.toArray(children), [children]);
-  const totalSlides = childrenArrays.length;
+  // Find the Slider component to get the actual slide count
+  const sliderChild = React.Children.toArray(children).find(
+    (child) => React.isValidElement(child) && child.type === Carousel.Slider
+  ) as React.ReactElement<{ children: React.ReactNode }> | undefined;
+
+  const totalSlides = sliderChild ? Math.ceil(React.Children.count(sliderChild.props.children) / slidesToShow) : 0;
+
+  // alert(totalSlides);
 
   const prevSlide = () => {
     setResetAutoOnBtnClick(true);
@@ -90,9 +99,9 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
     }
 
     // Set transition duration
-    setIsTranstioning(true);
+    setIsTransitioning(true);
     const timer = setTimeout(() => {
-      setIsTranstioning(false);
+      setIsTransitioning(false);
     }, speed * 1000);
     return () => clearTimeout(timer);
   }, [index, speed, totalSlides]);
@@ -123,7 +132,7 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
 
   return (
     <CarouselContext.Provider
-      value={{ prevSlide, nextSlide, isTransitioning, totalSlides, index, isJump, speed, setIndex }}
+      value={{ prevSlide, nextSlide, isTransitioning, totalSlides, index, isJump, speed, setIndex, slidesToShow }}
     >
       <div
         ref={ref}
@@ -135,7 +144,7 @@ export function Carousel({ children, speed = 0.3, auto, interval = 3000 }: iProp
         }}
       >
         {/* Render children including buttons */}
-        {childrenArrays.map((child, i) =>
+        {React.Children.map(children, (child, i) =>
           React.isValidElement(child) ? <React.Fragment key={i}>{child}</React.Fragment> : null
         )}
       </div>
@@ -148,6 +157,16 @@ Carousel.Slider = function Slider({ children }: { children: React.ReactNode }) {
   if (!ctx) return null;
 
   const childrenArray = React.Children.toArray(children);
+  // const slidesToShow = 4;
+
+  // group the slides into 2
+  const groupedSlides = [];
+  for (let i = 0; i < childrenArray.length; i += ctx.slidesToShow) {
+    groupedSlides.push(childrenArray.slice(i, i + ctx.slidesToShow));
+  }
+  // const totalSlides = groupedSlides.length;
+
+  // alert(totalSlides);
 
   return (
     <div
@@ -159,20 +178,34 @@ Carousel.Slider = function Slider({ children }: { children: React.ReactNode }) {
         transition: ctx.isJump ? "none" : `transform ${ctx.speed}s ease`,
       }}
     >
-      {/* Clone of last */}
-      <div style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0 }}>
-        {childrenArray[ctx.totalSlides - 1]}
+      {/* Clone of last slide */}
+      <div style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0, display: "flex" }}>
+        {groupedSlides[ctx.totalSlides - 1].map((slide, i) => (
+          <div key={i} style={{ width: `${100 / ctx.slidesToShow}%`, flexShrink: 0 }}>
+            {slide}
+          </div>
+        ))}
       </div>
 
       {/* Real slides */}
-      {childrenArray.map((child, i) => (
-        <div key={i} style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0 }}>
-          {child}
+      {groupedSlides.map((group, i) => (
+        <div key={i} style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0, display: "flex" }}>
+          {group.map((slide, i) => (
+            <div key={i} style={{ width: `${100 / ctx.slidesToShow}%`, flexShrink: 0 }}>
+              {slide}
+            </div>
+          ))}
         </div>
       ))}
 
-      {/* Clone of first */}
-      <div style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0 }}>{childrenArray[0]}</div>
+      {/* Clone of first slide */}
+      <div style={{ width: `${100 / (ctx.totalSlides + 2)}%`, flexShrink: 0, display: "flex" }}>
+        {groupedSlides[0].map((slide, i) => (
+          <div key={i} style={{ width: `${100 / ctx.slidesToShow}%`, flexShrink: 0 }}>
+            {slide}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -245,7 +278,7 @@ Carousel.Bullet = function Bullet({ className }: iController) {
       {slides.map((slide, i) => (
         <button
           key={i}
-          onClick={() => ctx.setIndex(i + 1)}
+          onClick={() => ctx.setIndex(i+1)}
           aria-label={`Go to slide ${i + 1}`}
           style={{
             border: "solid thin #ccc",
@@ -254,6 +287,7 @@ Carousel.Bullet = function Bullet({ className }: iController) {
             borderRadius: "50%",
             display: "inline-block",
             cursor: "pointer",
+            backgroundColor: i === index - 1 ? "#666" : "transparent",
           }}
         ></button>
       ))}

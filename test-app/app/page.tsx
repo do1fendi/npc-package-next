@@ -10,19 +10,23 @@ export default function Home() {
       {/* <div className="h-screen">sdad</div>
       <div ref={ref}>{JSON.stringify(isIntersecting)}</div>
       <div className="h-screen">sdad</div> */}
-      {/* <div className="w-[300px] h-[300px] rounded overflow-hidden">
-        <Carousel speed={0.4} auto>
+      <div className="w-[300px] h-[300px] rounded overflow-hidden">
+        <Carousel slidesToShow={3}>
           <Carousel.LeftButton className="text-xl cursor-pointer">Left</Carousel.LeftButton>
           <Carousel.RightButton>Right</Carousel.RightButton>
           <Carousel.Bullet />
           <Carousel.Slider>
-            <div className="w-full h-full bg-pink-200">0</div>
-            <div className="w-full h-full bg-pink-400">1</div>
-            <div className="w-full h-full bg-pink-600">2</div>
-            <div className="w-full h-full bg-pink-800">3</div>
+            <div className="w-full h-full bg-pink-200 flex justify-center items-center text-2xl">0</div>
+            <div className="w-full h-full bg-pink-400 flex justify-center items-center text-2xl">1</div>
+            <div className="w-full h-full bg-pink-600 flex justify-center items-center text-2xl">2</div>
+            <div className="w-full h-full bg-pink-800 flex justify-center items-center text-2xl">3</div>
+            <div className="w-full h-full bg-pink-200 flex justify-center items-center text-2xl">4</div>
+            <div className="w-full h-full bg-pink-400 flex justify-center items-center text-2xl">5</div>
+            <div className="w-full h-full bg-pink-600 flex justify-center items-center text-2xl">6</div>
+            <div className="w-full h-full bg-pink-800 flex justify-center items-center text-2xl">7</div>
           </Carousel.Slider>
         </Carousel>
-      </div> */}
+      </div>
       {/* <Modal
         className={`text-gray-700 p-5 transition-all duration-500 ease-in-out ${isOpen ? "opacity-100" : "opacity-0"}`}
         isOpen={isOpen}
@@ -42,7 +46,7 @@ export default function Home() {
       </Modal>
       <button onClick={() => setIsOpen(true)}>Open Modal</button> */}
 
-      <Accordion className="w-[500px] border border-gray-200 rounded-lg">
+      {/* <Accordion className="w-[500px] border border-gray-200 rounded-lg">
         <Accordion.Item>
           <Accordion.Item.Header className="text-xl font-bold cursor-pointer p-2 border-b border-gray-200">
             <h1>Accordion Item Header 1</h1>
@@ -71,7 +75,7 @@ export default function Home() {
             </p>
           </Accordion.Item.Body>
         </Accordion.Item>
-      </Accordion>
+      </Accordion> */}
     </div>
   );
 }

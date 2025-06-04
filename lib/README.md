@@ -2,7 +2,6 @@
 
 ```bash
 npm run @do1fendi/next-lib
-#
 ```
 
 ## Module Carousel
